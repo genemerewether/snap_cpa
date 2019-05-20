@@ -44,7 +44,6 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   image_transport
-  nodelet
 )
 
 catkin_package(
@@ -54,8 +53,6 @@ catkin_package(
     sensor_msgs
     std_msgs
     image_transport
-    nodelet
-  LIBRARIES snap_cpa_nodelet
 )
 
 ###########
@@ -83,27 +80,14 @@ target_link_libraries(snap_cpa_node
   snap_cpa
 )
 
-add_library(snap_cpa_nodelet src/snap_cpa_nodelet.cpp)
-add_dependencies(snap_cpa_nodelet ${catkin_EXPORTED_TARGETS})
-target_link_libraries(snap_cpa_nodelet
-  ${Boost_LIBRARIES}
-  ${catkin_LIBRARIES}
-  snap_cpa
-)
-
 install(DIRECTORY launch/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 
 ## Mark executables and/or libraries for installation
 install(TARGETS
-  snap_cpa snap_cpa_node snap_cpa_nodelet
+  snap_cpa snap_cpa_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
-install(FILES snap_cpa_nodelet.xml
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
